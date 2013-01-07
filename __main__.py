@@ -24,12 +24,15 @@ def drop_old(now, profile):
 for profile, events in profile_events():
     newest = ''
     repos = profile.setdefault('repos', {})
-    for event in events:
-        obj = json.loads(event.object.data)
-        repo = REPO_RE.match(obj['referrer']).group(1)
-        if repo in repos:
-            repos[repo].append(event.object)
-        else:
-            repos[repo] = [event.object]
-        newest = max(newest, obj['tstamp'])
-    drop_old(newest, profile)
+    if profile.uid == '0.0.0.0':
+        profile.set_expire(0)
+    else:
+        for event in events:
+            obj = json.loads(event.object.data)
+            repo = REPO_RE.match(obj['referrer']).group(1)
+            if repo in repos:
+                repos[repo].append(event.object)
+            else:
+                repos[repo] = [event.object]
+            newest = max(newest, obj['tstamp'])
+        drop_old(newest, profile)
