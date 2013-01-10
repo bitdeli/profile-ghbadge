@@ -29,10 +29,12 @@ for profile, events in profile_events():
     else:
         for event in events:
             obj = json.loads(event.object.data)
-            repo = REPO_RE.match(obj['referrer']).group(1)
-            if repo in repos:
-                repos[repo].append(event.object)
-            else:
-                repos[repo] = [event.object]
+            repo = REPO_RE.match(obj['referrer'])
+            if repo:
+                repo = repo.group(1)
+                if repo in repos:
+                    repos[repo].append(event.object)
+                else:
+                    repos[repo] = [event.object]
             newest = max(newest, obj['tstamp'])
         drop_old(newest, profile)
