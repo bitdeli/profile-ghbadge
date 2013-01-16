@@ -14,20 +14,20 @@ Create a badge at https://bitdeli.com/free.
 - **Schema:**
     .. code-block:: python
 
-    {
-        "repos": {
-            "repository-name": [
-                {
-                    "ip": ip address of the client,
-                    "user-agent": user agent of the client,
-                    "referrer": repository name,
-                    "tstamp": timestamp
-                }
+        {
+            "repos": {
+                "repository-name": [
+                    {
+                        "ip": ip address of the client,
+                        "user-agent": user agent of the client,
+                        "referrer": repository name,
+                        "tstamp": timestamp
+                    }
+                    ...
+                ]
                 ...
-            ]
-            ...
+            }
         }
-    }
 
 - **Update interval:** 1 hour
 
