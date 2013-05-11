@@ -19,7 +19,10 @@ def drop_old(now, profile):
                 break
             i += 1
         repos[key] = lst[i:]
-    profile.set_expire(RETENTION)
+    try:
+        profile.set_expire(RETENTION)
+    except:
+        pass
 
 for profile, events in profile_events():
     newest = ''
